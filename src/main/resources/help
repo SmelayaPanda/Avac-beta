@@ -1,0 +1,10 @@
+MySQL:
+shell> sudo service mysql start
+shell> sudo service mysql stop
+
+
+YandexTranslate:
+Translate.setKey(ApiKeys.YANDEX_API_KEY);
+String fra = Translate.execute(eng, Language.ENGLISH, Language.FRENCH).toLowerCase().replace("'", "''");
+
+
