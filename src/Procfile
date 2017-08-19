@@ -1,0 +1,1 @@
+web: java -jar target/Avac-beta-1.1.09.jar
