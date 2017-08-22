@@ -8,3 +8,4 @@ Translate.setKey(ApiKeys.YANDEX_API_KEY);
 String fra = Translate.execute(eng, Language.ENGLISH, Language.FRENCH).toLowerCase().replace("'", "''");
 
 
+For Jelastic don't use maven

@@ -78,7 +78,7 @@ public class AvacServlet extends HttpServlet {
                                 langFrom + "," +
                                 langTo + " " +
                                 "FROM avac.avacDictionary av " +
-                                "WHERE av" + ".eng IN ( " + pageWords + " )" +
+                                "WHERE av." + langFrom + " IN ( " + pageWords + " )" +
                                 "  AND av.rank > " + Math.pow(Double.parseDouble(level), 2.547);
 
                 rs = stmt.executeQuery(sql);
@@ -116,7 +116,7 @@ public class AvacServlet extends HttpServlet {
 
         } else {
             try (PrintWriter writer = resp.getWriter()) {
-                writer.write("Hello. Avac may be here");
+                writer.write("<h1>Hello. Avac may be here</h1>");
             } catch (IOException e) {
                 e.printStackTrace();
             }
