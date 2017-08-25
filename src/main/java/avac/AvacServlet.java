@@ -80,7 +80,7 @@ public class AvacServlet extends HttpServlet {
                                 "FROM avac.avacDictionary av " +
                                 "WHERE av." + langFrom + " IN ( " + pageWords + " )" +
                                 "  AND av.rank > " + Math.pow(Double.parseDouble(level), 2.547);
-
+                System.out.println(sql);
                 rs = stmt.executeQuery(sql);
 
                 while (rs.next()) {
