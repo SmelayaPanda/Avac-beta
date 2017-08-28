@@ -1,6 +1,6 @@
 MySQL:
-shell> sudo service mysql start
-shell> sudo service mysql stop
+$ sudo service mysql start
+$ sudo service mysql stop
 
 
 YandexTranslate:
@@ -8,4 +8,6 @@ Translate.setKey(ApiKeys.YANDEX_API_KEY);
 String fra = Translate.execute(eng, Language.ENGLISH, Language.FRENCH).toLowerCase().replace("'", "''");
 
 
-For Jelastic don't use maven
+$ export M2_HOME=/home/panda/bin/apache-maven-3.5.0/
+$ export M2=$M2_HOME/bin
+$ export PATH=$M2:$PATH

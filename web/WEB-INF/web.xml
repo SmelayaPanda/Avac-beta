@@ -8,7 +8,6 @@
         <servlet-name>avac</servlet-name>
         <servlet-class>avac.AvacServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>avac</servlet-name>
         <url-pattern>/</url-pattern>
