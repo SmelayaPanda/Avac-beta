@@ -25,7 +25,6 @@ public class AvacServlet extends HttpServlet
 
         resp.setContentType( "text/html" );
         resp.setCharacterEncoding( UTF_8 );
-
         try
         {
             reqHandle( req, resp );
@@ -41,7 +40,6 @@ public class AvacServlet extends HttpServlet
     {
         resp.setContentType( "text/html" );
         resp.setCharacterEncoding( UTF_8 );
-
         try
         {
             reqHandle( req, resp );
@@ -55,7 +53,7 @@ public class AvacServlet extends HttpServlet
     private void reqHandle( HttpServletRequest req, HttpServletResponse resp ) throws SQLException
     {
 
-        /*
+        /* ---------------------
          * Content.js parameters
          */
         String address = req.getParameter( GO_TO );
@@ -65,12 +63,12 @@ public class AvacServlet extends HttpServlet
 
         if( null != address && null != level && null != langFrom && null != langTo )
         {
-            /*
+            /* -----------------------------
              * Get all page paragraphs words
              */
             Set<String> wordSet = WebPage.getPageWords( address );
             String pageWords = AvacUtils.toInClause( wordSet );
-            /*
+            /* ------------------------------------
              * Connect to avac schema for translate
              */
             AvacSchema avacSchema = new AvacSchema();
@@ -99,6 +97,8 @@ public class AvacServlet extends HttpServlet
                 );
                 rs = stmt.executeQuery( sql );
 
+                System.out.println( "------------------------------------------------------------------------------------------\n" + sql);
+
                 String langFromJSON;
                 String langToJSON;
 
@@ -106,7 +106,6 @@ public class AvacServlet extends HttpServlet
                 {
                     langFromJSON = rs.getString( langFrom );
                     langToJSON = rs.getString( langTo );
-                    System.out.println( "  $: "+ langFromJSON + " ->" + langToJSON );
 
                     json.put( langFromJSON, langToJSON );
 
@@ -126,20 +125,17 @@ public class AvacServlet extends HttpServlet
 
             System.out.println( "JSON size = " + json.size() );
 
-            /*
+            /* ----------------------------------
              * Send json dictionary to content.js
              */
             try (PrintWriter writer = resp.getWriter())
             {
                 writer.write( json.toJSONString() );
-
             }
             catch( IOException e )
             {
                 e.printStackTrace();
             }
-
-
         }
         else
         {

@@ -28,7 +28,12 @@ class WebPage {
         }
         if (paragraphs != null) {
             for (Element p : paragraphs) {
-                line = p.text().toLowerCase().split(" ");
+                line = p
+                        .text()
+                        .replaceAll("[^a-zA-Z\\s]", "")  // excluding of the punctuation and numbers
+                        .replaceAll("\\s+", " ")
+                        .toLowerCase()
+                        .split(" ");
                 Collections.addAll(wordList, line);
             }
         }
