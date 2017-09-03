@@ -30,8 +30,7 @@ class WebPage {
             for (Element p : paragraphs) {
                 line = p
                         .text()
-                        .replaceAll("[^a-zA-Z\\s]", "")  // excluding of the punctuation and numbers
-                        .replaceAll("\\s+", " ")
+                        .replaceAll("[^\\p{L}\\p{Nd}]+", " ")
                         .toLowerCase()
                         .split(" ");
                 Collections.addAll(wordList, line);

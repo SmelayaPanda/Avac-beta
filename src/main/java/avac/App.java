@@ -6,6 +6,7 @@ import db.JDBConnector;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,15 +21,27 @@ class App {
         ResultSet rs = null;
 
         try {
-            rs = stmt.executeQuery(
-                    "SELECT * FROM avac.avacDictionary a " +
-                            "WHERE a.rank < 5 ");
-            while (rs.next()) {
-                int rank = rs.getInt("rank");
-                String eng = rs.getString("eng");
-                String rus = rs.getString("rus");
 
-                System.out.println("rank = " + rank);
+            String sql;
+
+            sql = "SELECT eng,rus FROM avac.avacDictionary av WHERE av.test = ?";
+
+
+            PreparedStatement ps = null;
+            ps = conn.prepareStatement( sql );
+            ps.setString( 1, "привет" );
+
+            //ps.setString(1, "eng");
+            //ps.setString(2, "rus");
+
+            rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                Object eng = rs.getObject( "eng");
+                Object rus = rs.getObject("rus");
+
                 System.out.println("eng = " + eng);
                 System.out.println("rus = " + rus);
             }

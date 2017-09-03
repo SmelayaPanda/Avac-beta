@@ -58,24 +58,28 @@
       <Position>11</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <index id="19" parent="7" name="avacDictionary_eng_uindex">
+    <column id="19" parent="7" name="test">
+      <Position>12</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="20" parent="7" name="avacDictionary_eng_uindex">
       <ColNames>eng</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="20" parent="7" name="avacDictionary_rank_uindex">
+    <index id="21" parent="7" name="avacDictionary_rank_uindex">
       <ColNames>rank</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="21" parent="7" name="PRIMARY">
+    <key id="22" parent="7" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>rank</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="22" parent="7" name="avacDictionary_rank_uindex">
+    <key id="23" parent="7" name="avacDictionary_rank_uindex">
       <ColNames>rank</ColNames>
       <UnderlyingIndexName>avacDictionary_rank_uindex</UnderlyingIndexName>
     </key>
-    <key id="23" parent="7" name="avacDictionary_eng_uindex">
+    <key id="24" parent="7" name="avacDictionary_eng_uindex">
       <ColNames>eng</ColNames>
       <UnderlyingIndexName>avacDictionary_eng_uindex</UnderlyingIndexName>
     </key>
