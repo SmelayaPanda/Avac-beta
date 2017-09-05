@@ -70,16 +70,46 @@
       <ColNames>rank</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="22" parent="7" name="PRIMARY">
+    <index id="22" parent="7" name="avacDictionary_rus_index">
+      <ColNames>rus</ColNames>
+    </index>
+    <index id="23" parent="7" name="avacDictionary_deu_index">
+      <ColNames>deu</ColNames>
+    </index>
+    <index id="24" parent="7" name="avacDictionary_fra_index">
+      <ColNames>fra</ColNames>
+    </index>
+    <index id="25" parent="7" name="avacDictionary_ita_index">
+      <ColNames>ita</ColNames>
+    </index>
+    <index id="26" parent="7" name="avacDictionary_spa_index">
+      <ColNames>spa</ColNames>
+    </index>
+    <index id="27" parent="7" name="avacDictionary_tur_index">
+      <ColNames>tur</ColNames>
+    </index>
+    <index id="28" parent="7" name="avacDictionary_pol_index">
+      <ColNames>pol</ColNames>
+    </index>
+    <index id="29" parent="7" name="avacDictionary_swd_index">
+      <ColNames>swd</ColNames>
+    </index>
+    <index id="30" parent="7" name="avacDictionary_gre_index">
+      <ColNames>gre</ColNames>
+    </index>
+    <index id="31" parent="7" name="avacDictionary_test_index">
+      <ColNames>test</ColNames>
+    </index>
+    <key id="32" parent="7" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>rank</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="23" parent="7" name="avacDictionary_rank_uindex">
+    <key id="33" parent="7" name="avacDictionary_rank_uindex">
       <ColNames>rank</ColNames>
       <UnderlyingIndexName>avacDictionary_rank_uindex</UnderlyingIndexName>
     </key>
-    <key id="24" parent="7" name="avacDictionary_eng_uindex">
+    <key id="34" parent="7" name="avacDictionary_eng_uindex">
       <ColNames>eng</ColNames>
       <UnderlyingIndexName>avacDictionary_eng_uindex</UnderlyingIndexName>
     </key>
