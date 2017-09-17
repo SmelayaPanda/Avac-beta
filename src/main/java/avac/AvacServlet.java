@@ -4,7 +4,6 @@ import db.AvacSchema;
 import db.JDBConnector;
 import org.json.simple.JSONObject;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +19,7 @@ import static avac.AvacConst.*;
 
 public class AvacServlet extends HttpServlet
 {
-    protected void doGet( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException
+    protected void doGet( HttpServletRequest req, HttpServletResponse resp )
     {
         resp.setContentType( "text/html" );
         resp.setCharacterEncoding( UTF_8 );
@@ -35,7 +34,7 @@ public class AvacServlet extends HttpServlet
     }
 
     @Override
-    protected void doPost( HttpServletRequest req, HttpServletResponse resp ) throws ServletException, IOException
+    protected void doPost( HttpServletRequest req, HttpServletResponse resp )
     {
         resp.setContentType( "text/html" );
         resp.setCharacterEncoding( UTF_8 );
@@ -80,17 +79,18 @@ public class AvacServlet extends HttpServlet
             {
                 String sql =
                         " SELECT " +
-                        langFrom + "," +
-                        langTo + " " +
-                        " FROM avac.avacDictionary av " +
-                        " WHERE av." + langFrom + " IN ( " + pageWords + " )" +
-                        "   AND av.rank > " + Math.pow( Double.parseDouble( level ), 2.547 );
+                                langFrom + "," +
+                                langTo + " " +
+                                " FROM avac.avacDictionary av " +
+                                " WHERE av." + langFrom + " IN ( " + pageWords + " )" +
+                                "   AND av.rank > " + Math.pow( Double.parseDouble( level ), 2.547 );
+
                 System.out.println( "------------------------------------------------------------------------------------------\n" +
-                                    "Выполняем запрос для: " +
-                                    "-> " + address + "\n" +
-                                    "   level = " + level + "\n" +
-                                    "   langFrom = " + langFrom + "\n" +
-                                    "   langTo = " + langTo
+                        "Выполняем запрос для: " +
+                        "-> " + address + "\n" +
+                        "   level = " + level + "\n" +
+                        "   langFrom = " + langFrom + "\n" +
+                        "   langTo = " + langTo
                 );
                 rs = stmt.executeQuery( sql );
 
@@ -123,7 +123,7 @@ public class AvacServlet extends HttpServlet
             /** ----------------------------------
              * Send json dictionary to content.js
              */
-            try (PrintWriter writer = resp.getWriter())
+            try( PrintWriter writer = resp.getWriter() )
             {
                 writer.write( json.toJSONString() );
             }
@@ -134,7 +134,7 @@ public class AvacServlet extends HttpServlet
         }
         else
         {
-            try (PrintWriter writer = resp.getWriter())
+            try( PrintWriter writer = resp.getWriter() )
             {
                 writer.write( "<h1>Hello. Avac may be here</h1>" );
             }
