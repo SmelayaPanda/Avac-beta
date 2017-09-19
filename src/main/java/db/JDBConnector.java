@@ -6,7 +6,7 @@ import java.util.Properties;
 public class JDBConnector
 {
 
-    public static Connection getConnection( DbSсhema db )
+    public static Connection getConnection( DbSchema db )
     {
         Properties connInfo = new Properties();
         connInfo.put("user", db.getUSER());

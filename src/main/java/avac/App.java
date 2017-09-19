@@ -10,62 +10,76 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
+import java.util.Set;
 
-class App {
+class App
+{
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+    public static void main( String[] args ) throws ClassNotFoundException, SQLException, IOException
+    {
 
         AvacSchema avacSchema = new AvacSchema();
-        Connection conn = JDBConnector.getConnection(avacSchema);
+        Connection conn = JDBConnector.getConnection( avacSchema );
         Statement stmt = conn.createStatement();
         ResultSet rs = null;
 
-        try {
-
-            String sql;
-
-            sql = "SELECT eng,rus FROM avac.avacDictionary av WHERE av.test = ?";
 
 
-            PreparedStatement ps = null;
-            ps = conn.prepareStatement( sql );
-            ps.setString( 1, "привет" );
-
-            //ps.setString(1, "eng");
-            //ps.setString(2, "rus");
-
-            rs = ps.executeQuery();
 
 
-            while (rs.next()) {
+        //ps.setString(1, "eng");
+        //ps.setString(2, "rus");
 
-                Object eng = rs.getObject( "eng");
-                Object rus = rs.getObject("rus");
+        Map<String, Integer> map = WebPage.rangePageWords(
+                "http://www.5minuteenglish.com/",
+                "http://www.5minuteenglish.com/jun12.htm",
+                "http://www.5minuteenglish.com/jun1.htm",
+                "http://www.5minuteenglish.com/jun2.htm",
+                "http://www.5minuteenglish.com/jun3.htm",
+                "http://www.5minuteenglish.com/jun4.htm"
+        );
 
-                System.out.println("eng = " + eng);
-                System.out.println("rus = " + rus);
-            }
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        } finally {
 
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ignored) {
-                }
-            }
+        map.forEach( ( s, integer ) -> System.out.println( s + ": " + integer ) );
 
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException ignored) {
-                }
-            }
+/*
+
+        String checkSql;
+        checkSql = "SELECT COUNT(word) FROM arrangedWords aw WHERE aw.word = ?";
+        PreparedStatement ps = null;
+        ps = conn.prepareStatement( sql );
+        ps.setString( 1, "привет" );
+*/
+
+
+
+            /*System.out.println( pageWords );*/
+
+        //rs = ps.executeQuery();
+
+
+/*            while( rs.next() )
+            {
+
+                Object eng = rs.getObject( "eng" );
+                Object rus = rs.getObject( "rus" );
+
+                System.out.println( "eng = " + eng );
+                System.out.println( "rus = " + rus );
+            }*/
+        //}
+        /*catch( SQLException ex )
+        {
+            System.out.println( "SQLException: " + ex.getMessage() );
+            System.out.println( "SQLState: " + ex.getSQLState() );
+            System.out.println( "VendorError: " + ex.getErrorCode() );
         }
-        conn.close();
+        finally
+        {
+            JDBConnector.tryToCloseStatementAndResultSet( stmt, rs );
+        }
+        conn.close();*/
     }
 }
 
