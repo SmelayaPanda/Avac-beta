@@ -19,14 +19,10 @@ class App
     public static void main( String[] args ) throws ClassNotFoundException, SQLException, IOException
     {
 
-        AvacSchema avacSchema = new AvacSchema();
-        Connection conn = JDBConnector.getConnection( avacSchema );
-        Statement stmt = conn.createStatement();
-        ResultSet rs = null;
-
-
-
-
+        //AvacSchema avacSchema = new AvacSchema();
+        //Connection conn = JDBConnector.getConnection( avacSchema );
+        //Statement stmt = conn.createStatement();
+        //ResultSet rs = null;
 
         //ps.setString(1, "eng");
         //ps.setString(2, "rus");
