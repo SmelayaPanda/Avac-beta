@@ -25,19 +25,29 @@ public class EngAudio
             Connection conn = JDBConnector.getConnection( avacSchema );
             PreparedStatement ps = conn.prepareStatement( "INSERT INTO avac.engAudio VALUES ( ?, ? )" );
 
+            PreparedStatement checkSt = conn.prepareStatement("SELECT COUNT(1) FROM engAudio WHERE word = ? " );
+            ResultSet rs;
+
             int i = 0;
             String key;
             for( Object o : jsonObject.keySet() )
             {
                 key = ( String ) o;
-                ps.setString( 1, key );
-                ps.setString( 2, String.valueOf( jsonObject.get( key ) ) );
-                ps.addBatch();
-                i++;
+                checkSt.setString( 1, key );
+                rs = checkSt.executeQuery();
+                rs.next();
+                if( rs.getInt( 1 ) != 0 )
+                {
+                    ps.setString( 1, key );
+                    ps.setString( 2, String.valueOf( jsonObject.get( key ) ) );
+                    ps.addBatch();
+                    i++;
 
-                if (i % 1000 == 0 ) {
-                    ps.executeBatch();
-                    System.out.println( i );
+                    if( i % 100 == 0 )
+                    {
+                        ps.executeBatch();
+                        System.out.println( i );
+                    }
                 }
             }
         }
