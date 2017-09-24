@@ -1,9 +1,8 @@
-package fileWork;
+package support.fileWork;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class FileReader2
@@ -32,13 +31,10 @@ public class FileReader2
                 String line = sc.nextLine();
                 String[] a = line.split( ":" );
                 map.put( a[ 0 ], Integer.parseInt( a[ 1 ].trim() ) );
-
                 counter++;
-
             }
             System.out.println( map.size() );
-
-
+            System.out.println( counter );
         }
         finally
         {

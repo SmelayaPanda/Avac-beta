@@ -1,20 +1,16 @@
-package avac;
+package support;
 
 
 import db.AvacSchema;
 import db.JDBConnector;
-import fileWork.FileReader2;
+import support.fileWork.FileReader2;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 class App
 {
@@ -25,8 +21,6 @@ class App
         AvacSchema avacSchema = new AvacSchema();
         Connection conn = JDBConnector.getConnection( avacSchema );
         PreparedStatement ps1 = conn.prepareStatement( "INSERT INTO wikipedia VALUES (? , ? )" );
-        //ResultSet rs = null;
-
 
         HashMap<String, Integer> map;
         map = FileReader2.readFileToMap();

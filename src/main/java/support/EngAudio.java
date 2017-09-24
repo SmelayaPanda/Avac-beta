@@ -1,4 +1,4 @@
-package avac;
+package support;
 
 import db.AvacSchema;
 import db.JDBConnector;
@@ -18,12 +18,9 @@ public class EngAudio
 
         try
         {
-
             Object obj = parser.parse( new FileReader( "/Users/panda/IdeaProjects/Avac-beta/src/main/resources/audio-data.json" ) );
 
             JSONObject jsonObject = ( JSONObject ) obj;
-
-
             AvacSchema avacSchema = new AvacSchema();
             Connection conn = JDBConnector.getConnection( avacSchema );
             PreparedStatement ps = conn.prepareStatement( "INSERT INTO avac.engAudio VALUES ( ?, ? )" );
@@ -48,9 +45,6 @@ public class EngAudio
         {
             e.printStackTrace();
         }
-
     }
-
-
 }
 

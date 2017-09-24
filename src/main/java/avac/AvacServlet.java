@@ -79,11 +79,11 @@ public class AvacServlet extends HttpServlet
             {
                 String sql =
                         " SELECT " +
-                                langFrom + "," +
+                                langFrom + ", " +
                                 langTo + " " +
-                                " FROM avac.avacDictionary av " +
-                                " WHERE av." + langFrom + " IN ( " + pageWords + " )" +
-                                "   AND av.rank > " + Math.pow( Double.parseDouble( level ), 2.547 );
+                                "FROM avac.avacDictionary av " +
+                                "WHERE av." + langFrom + " IN ( " + pageWords + " )" +
+                                "  AND av.rank > " + Math.pow( Double.parseDouble( level ), 2.547 );
 
                 System.out.println( "------------------------------------------------------------------------------------------\n" +
                         "Выполняем запрос для: " +

@@ -43,6 +43,7 @@ public class JDBConnector
             }
             catch( SQLException ignored )
             {
+                //
             }
         }
 
@@ -54,6 +55,7 @@ public class JDBConnector
             }
             catch( SQLException ignored )
             {
+                //
             }
         }
     }
