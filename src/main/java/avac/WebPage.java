@@ -15,6 +15,18 @@ import java.util.Set;
 class WebPage
 {
 
+    /*        Map<String, Integer> map = WebPage.rangePageWords(
+                "http://www.5minuteenglish.com/",
+                "http://www.5minuteenglish.com/jun12.htm",
+                "http://www.5minuteenglish.com/jun1.htm",
+                "http://www.5minuteenglish.com/jun2.htm",
+                "http://www.5minuteenglish.com/jun3.htm",
+                "http://www.5minuteenglish.com/jun4.htm"
+        );
+
+
+        map.forEach( ( s, integer ) -> System.out.println( s + ": " + integer ) );*/
+
     static Set<String> getPageWords( String url )
     {
         Set<String> wordList = new HashSet<>();

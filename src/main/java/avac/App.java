@@ -3,13 +3,16 @@ package avac;
 
 import db.AvacSchema;
 import db.JDBConnector;
+import fileWork.FileReader2;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,65 +22,61 @@ class App
     public static void main( String[] args ) throws ClassNotFoundException, SQLException, IOException
     {
 
-        //AvacSchema avacSchema = new AvacSchema();
-        //Connection conn = JDBConnector.getConnection( avacSchema );
-        //Statement stmt = conn.createStatement();
+        AvacSchema avacSchema = new AvacSchema();
+        Connection conn = JDBConnector.getConnection( avacSchema );
+        PreparedStatement ps1 = conn.prepareStatement( "INSERT INTO wikipedia VALUES (? , ? )" );
         //ResultSet rs = null;
 
-        //ps.setString(1, "eng");
-        //ps.setString(2, "rus");
 
-        Map<String, Integer> map = WebPage.rangePageWords(
-                "http://www.5minuteenglish.com/",
-                "http://www.5minuteenglish.com/jun12.htm",
-                "http://www.5minuteenglish.com/jun1.htm",
-                "http://www.5minuteenglish.com/jun2.htm",
-                "http://www.5minuteenglish.com/jun3.htm",
-                "http://www.5minuteenglish.com/jun4.htm"
-        );
+        HashMap<String, Integer> map;
+        map = FileReader2.readFileToMap();
+        int counter = 0;
 
-
-        map.forEach( ( s, integer ) -> System.out.println( s + ": " + integer ) );
-
-/*
-
-        String checkSql;
-        checkSql = "SELECT COUNT(word) FROM arrangedWords aw WHERE aw.word = ?";
-        PreparedStatement ps = null;
-        ps = conn.prepareStatement( sql );
-        ps.setString( 1, "привет" );
-*/
-
-
-
-            /*System.out.println( pageWords );*/
-
-        //rs = ps.executeQuery();
-
-
-/*            while( rs.next() )
+        try
+        {
+            for( Map.Entry<String, Integer> entry : map.entrySet() )
             {
+                ps1.setString( 1, entry.getKey() );
+                ps1.setInt( 2, entry.getValue() );
+                ps1.execute();
+                counter++;
+                if( counter % 10000 == 0 )
+                    System.out.println( counter );
+            }
 
-                Object eng = rs.getObject( "eng" );
-                Object rus = rs.getObject( "rus" );
 
-                System.out.println( "eng = " + eng );
-                System.out.println( "rus = " + rus );
-            }*/
-        //}
-        /*catch( SQLException ex )
+//        String checkSql;
+//        checkSql = "SELECT COUNT(word) FROM arrangedWords aw WHERE aw.word = ?";
+//        PreparedStatement ps2 = null;
+//        ps2 = conn.prepareStatement( checkSql );
+//        ps2.setString( 1, "привет" );
+//        rs = ps2.executeQuery();
+
+
+        }
+        catch(
+                SQLException ex )
+
         {
             System.out.println( "SQLException: " + ex.getMessage() );
             System.out.println( "SQLState: " + ex.getSQLState() );
             System.out.println( "VendorError: " + ex.getErrorCode() );
         }
         finally
+
         {
-            JDBConnector.tryToCloseStatementAndResultSet( stmt, rs );
+            JDBConnector.tryToCloseStatementAndResultSet( ps1, null );
+            //JDBConnector.tryToCloseStatementAndResultSet( ps2, rs );
         }
-        conn.close();*/
+        conn.close();
     }
 }
+
+
+
+
+
+
 
 
 
