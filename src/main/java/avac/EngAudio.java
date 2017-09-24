@@ -28,13 +28,20 @@ public class EngAudio
             Connection conn = JDBConnector.getConnection( avacSchema );
             PreparedStatement ps = conn.prepareStatement( "INSERT INTO avac.engAudio VALUES ( ?, ? )" );
 
+            int i = 0;
+            String key;
             for( Object o : jsonObject.keySet() )
             {
-                String key = ( String ) o;
+                key = ( String ) o;
                 ps.setString( 1, key );
                 ps.setString( 2, String.valueOf( jsonObject.get( key ) ) );
-                System.out.println( jsonObject.get( key ) + " -> " + key );
-                ps.execute();
+                ps.addBatch();
+                i++;
+
+                if (i % 1000 == 0 ) {
+                    ps.executeBatch();
+                    System.out.println( i );
+                }
             }
         }
         catch( IOException | ParseException e )

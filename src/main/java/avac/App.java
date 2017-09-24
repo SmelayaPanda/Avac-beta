@@ -38,9 +38,10 @@ class App
             {
                 ps1.setString( 1, entry.getKey() );
                 ps1.setInt( 2, entry.getValue() );
-                ps1.execute();
+                ps1.addBatch();
                 counter++;
-                if( counter % 10000 == 0 )
+                if( counter % 1000 == 0 )
+                    ps1.executeBatch();
                     System.out.println( counter );
             }
 
