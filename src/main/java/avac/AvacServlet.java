@@ -17,39 +17,29 @@ import java.util.Set;
 
 import static avac.AvacConst.*;
 
-public class AvacServlet extends HttpServlet
-{
-    protected void doGet( HttpServletRequest req, HttpServletResponse resp )
-    {
+public class AvacServlet extends HttpServlet {
+    protected void doGet( HttpServletRequest req, HttpServletResponse resp ) {
         resp.setContentType( "text/html" );
         resp.setCharacterEncoding( UTF_8 );
-        try
-        {
+        try {
             reqHandle( req, resp );
-        }
-        catch( SQLException e )
-        {
+        } catch( SQLException e ) {
             e.printStackTrace();
         }
     }
 
     @Override
-    protected void doPost( HttpServletRequest req, HttpServletResponse resp )
-    {
+    protected void doPost( HttpServletRequest req, HttpServletResponse resp ) {
         resp.setContentType( "text/html" );
         resp.setCharacterEncoding( UTF_8 );
-        try
-        {
+        try {
             reqHandle( req, resp );
-        }
-        catch( SQLException e )
-        {
+        } catch( SQLException e ) {
             e.printStackTrace();
         }
     }
 
-    private void reqHandle( HttpServletRequest req, HttpServletResponse resp ) throws SQLException
-    {
+    private void reqHandle( HttpServletRequest req, HttpServletResponse resp ) throws SQLException {
         /** --------------------
          * Content.js parameters
          */
@@ -58,8 +48,7 @@ public class AvacServlet extends HttpServlet
         String langFrom = req.getParameter( LANG_FROM );
         String langTo = req.getParameter( LANG_TO );
 
-        if( null != address && null != level && null != langFrom && null != langTo )
-        {
+        if( null != address && null != level && null != langFrom && null != langTo ) {
             /** ----------------------------
              * Get all page paragraphs words
              */
@@ -75,45 +64,39 @@ public class AvacServlet extends HttpServlet
             ResultSet rs = null;
             JSONObject json = new JSONObject();
 
-            try
-            {
+            try {
                 String sql =
                         " SELECT " +
-                                langFrom + ", " +
-                                langTo + " " +
-                                "FROM avac.avacDictionary av " +
-                                "WHERE av." + langFrom + " IN ( " + pageWords + " )" +
-                                "  AND av.rank > " + Math.pow( Double.parseDouble( level ), 2.547 );
+                        langFrom + ", " +
+                        langTo + " " +
+                        "FROM avac.avacDictionary av " +
+                        "WHERE av." + langFrom + " IN ( " + pageWords + " )" +
+                        "  AND av.rank > " + Math.pow( Double.parseDouble( level ), 2.547 );
 
                 System.out.println( "------------------------------------------------------------------------------------------\n" +
-                        "Выполняем запрос для: " +
-                        "-> " + address + "\n" +
-                        "   level = " + level + "\n" +
-                        "   langFrom = " + langFrom + "\n" +
-                        "   langTo = " + langTo
+                                    "Выполняем запрос для: " +
+                                    "-> " + address + "\n" +
+                                    "   level = " + level + "\n" +
+                                    "   langFrom = " + langFrom + "\n" +
+                                    "   langTo = " + langTo
                 );
                 rs = stmt.executeQuery( sql );
 
                 String langFromJSON;
                 String langToJSON;
 
-                while( rs.next() )
-                {
+                while( rs.next() ) {
                     langFromJSON = rs.getString( langFrom );
                     langToJSON = rs.getString( langTo );
 
                     json.put( langFromJSON, langToJSON );
 
                 }
-            }
-            catch( SQLException ex )
-            {
+            } catch( SQLException ex ) {
                 System.out.println( "SQLException: " + ex.getMessage() );
                 System.out.println( "SQLState: " + ex.getSQLState() );
                 System.out.println( "VendorError: " + ex.getErrorCode() );
-            }
-            finally
-            {
+            } finally {
                 JDBConnector.tryToCloseStatementAndResultSet( stmt, rs );
             }
             conn.close();
@@ -123,23 +106,16 @@ public class AvacServlet extends HttpServlet
             /** ----------------------------------
              * Send json dictionary to content.js
              */
-            try( PrintWriter writer = resp.getWriter() )
-            {
+            try (PrintWriter writer = resp.getWriter()) {
                 writer.write( json.toJSONString() );
-            }
-            catch( IOException e )
-            {
+            } catch( IOException e ) {
                 e.printStackTrace();
             }
         }
-        else
-        {
-            try( PrintWriter writer = resp.getWriter() )
-            {
+        else {
+            try (PrintWriter writer = resp.getWriter()) {
                 writer.write( "<h1>Hello. Avac may be here</h1>" );
-            }
-            catch( IOException e )
-            {
+            } catch( IOException e ) {
                 e.printStackTrace();
             }
         }

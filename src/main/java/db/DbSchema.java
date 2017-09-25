@@ -1,7 +1,6 @@
 package db;
 
-class DbSchema
-{
+class DbSchema {
     private static String NAME;
     private static String DRIVER;
 
@@ -9,53 +8,43 @@ class DbSchema
     private static String URL;
     private static String PASS;
 
-    public static void setUSER( String USER )
-    {
+    public static void setUSER(String USER) {
         DbSchema.USER = USER;
     }
 
-    public static void setURL( String URL )
-    {
+    public static void setURL(String URL) {
         DbSchema.URL = URL;
     }
 
-    public static void setPASS( String PASS )
-    {
+    public static void setPASS(String PASS) {
         DbSchema.PASS = PASS;
     }
 
-    public static void setDRIVER( String DRIVER )
-    {
+    public static void setDRIVER(String DRIVER) {
         DbSchema.DRIVER = DRIVER;
     }
 
-    public static void setNAME( String NAME )
-    {
+    public static void setNAME(String NAME) {
         DbSchema.NAME = NAME;
     }
 
-    public String getNAME()
-    {
+    public String getNAME() {
         return NAME;
     }
 
-    public String getDRIVER()
-    {
+    public String getDRIVER() {
         return DRIVER;
     }
 
-    public String getUSER()
-    {
+    public String getUSER() {
         return USER;
     }
 
-    public String getURL()
-    {
+    public String getURL() {
         return URL;
     }
 
-    public String getPASS()
-    {
+    public String getPASS() {
         return PASS;
     }
 

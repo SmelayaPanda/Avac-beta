@@ -12,30 +12,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-class WebPage
-{
-    static Set<String> getPageWords( String url )
-    {
+class WebPage {
+    static Set<String> getPageWords( String url ) {
         Set<String> wordList = new HashSet<>();
         String[] line;
         Document doc = null;
-        try
-        {
+        try {
             doc = Jsoup.connect( url ).get();
-        }
-        catch( IOException e )
-        {
+        } catch( IOException e ) {
             e.printStackTrace();
         }
         Elements paragraphs = null;
-        if( doc != null )
-        {
+        if( doc != null ) {
             paragraphs = doc.select( "p" );
         }
-        if( paragraphs != null )
-        {
-            for( Element p : paragraphs )
-            {
+        if( paragraphs != null ) {
+            for( Element p : paragraphs ) {
                 line = p
                         .text()
                         .replaceAll( "[^\\p{L}\\p{Nd}]+", " " )
@@ -47,46 +39,35 @@ class WebPage
         return wordList;
     }
 
-    static Map<String, Integer> rangePageWords( String... urls )
-    {
+    static Map<String, Integer> rangePageWords( String... urls ) {
         Map<String, Integer> map = new HashMap<>();
         String[] line;
         Document doc = null;
 
-        for( String url : urls )
-        {
-            try
-            {
+        for( String url : urls ) {
+            try {
                 doc = Jsoup.connect( url ).get();
-            }
-            catch( Exception ignored )
-            {
+            } catch( Exception ignored ) {
                 //
             }
             Elements paragraphs = null;
-            if( doc != null )
-            {
+            if( doc != null ) {
                 paragraphs = doc.select( "p" );
             }
-            if( paragraphs != null )
-            {
-                for( Element p : paragraphs )
-                {
+            if( paragraphs != null ) {
+                for( Element p : paragraphs ) {
                     line = p
                             .text()
                             .replaceAll( "[^\\p{L}\\p{Nd}]+", " " )
                             .toLowerCase()
                             .split( " " );
 
-                    for( String w : line )
-                    {
+                    for( String w : line ) {
                         w = w.trim();
-                        if( map.containsKey( w ) )
-                        {
+                        if( map.containsKey( w ) ) {
                             map.put( w, map.get( w ) + 1 );
                         }
-                        else
-                        {
+                        else {
                             map.put( w, 1 );
                         }
                     }

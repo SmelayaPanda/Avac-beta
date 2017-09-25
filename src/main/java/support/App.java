@@ -3,67 +3,57 @@ package support;
 
 import db.AvacSchema;
 import db.JDBConnector;
-import support.fileWork.FileReader2;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Scanner;
 
-class App
-{
-
-    public static void main( String[] args ) throws ClassNotFoundException, SQLException, IOException
-    {
-
+class App {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
         AvacSchema avacSchema = new AvacSchema();
-        Connection conn = JDBConnector.getConnection( avacSchema );
-        PreparedStatement ps1 = conn.prepareStatement( "INSERT INTO wikipedia VALUES (? , ? )" );
+        Connection conn = JDBConnector.getConnection(avacSchema);
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO wikipedia VALUES (? , ? )");
 
-        HashMap<String, Integer> map;
-        map = FileReader2.readFileToMap();
-        int counter = 0;
+        FileInputStream inputStream = null;
+        Scanner sc = null;
+        try {
+            inputStream = new FileInputStream("C:\\Avac-beta\\src\\main\\resources\\sortedWords");
+            sc = new Scanner(inputStream, "UTF-8");
 
-        try
-        {
-            for( Map.Entry<String, Integer> entry : map.entrySet() )
-            {
-                ps1.setString( 1, entry.getKey() );
-                ps1.setInt( 2, entry.getValue() );
-                ps1.addBatch();
+            int counter = 0;
+            while (sc.hasNextLine()) {
                 counter++;
-                if( counter % 1000 == 0 )
-                    ps1.executeBatch();
-                    System.out.println( counter );
+                String line = sc.nextLine();
+                String[] a = line.split(":");
+                if (counter > 0) {
+                    ps.setString(1, a[0].trim());
+                    ps.setInt(2, Integer.parseInt(a[1].trim()));
+                    ps.addBatch();
+                    if (counter % 100 == 0) {
+                        Date date = new Date();
+                        ps.executeBatch();
+                        System.out.println(new Timestamp(date.getTime()) + " ----> " + counter);
+                    }
+                }
             }
-
-
-//        String checkSql;
-//        checkSql = "SELECT COUNT(word) FROM arrangedWords aw WHERE aw.word = ?";
-//        PreparedStatement ps2 = null;
-//        ps2 = conn.prepareStatement( checkSql );
-//        ps2.setString( 1, "привет" );
-//        rs = ps2.executeQuery();
-
-
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if (sc != null) {
+                sc.close();
+            }
+            JDBConnector.tryToCloseStatementAndResultSet(ps, null);
         }
-        catch(
-                SQLException ex )
-
-        {
-            System.out.println( "SQLException: " + ex.getMessage() );
-            System.out.println( "SQLState: " + ex.getSQLState() );
-            System.out.println( "VendorError: " + ex.getErrorCode() );
-        }
-        finally
-
-        {
-            JDBConnector.tryToCloseStatementAndResultSet( ps1, null );
-            //JDBConnector.tryToCloseStatementAndResultSet( ps2, rs );
-        }
-        conn.close();
     }
 }
 
