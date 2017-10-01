@@ -10,12 +10,9 @@ class AvacConst {
     static final String LANG_TO = "langTo";
     static final String LEVEL = "level";
     static final String GO_TO = "goto";
+    static final String WORD = "word";
 
-    static final String COLLOQUIAL = "colloquial";
-    static final String LITERARY = "literary";
-    static final String OFFICIAL = "official";
-    static final String PUBLICISTIC = "publicistic";
-    static final String SCIENTIFIC = "scientific";
-    static final String COMMON = "common";
 
+    static final String ENG = "eng";
+    static final String RUS = "rus";
 }

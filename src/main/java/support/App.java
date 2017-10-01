@@ -17,20 +17,20 @@ class App {
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
         AvacSchema avacSchema = new AvacSchema();
         Connection conn = JDBConnector.getConnection(avacSchema);
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO wikipedia VALUES (? , ? )");
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO wikipediaRus VALUES (? , ? )");
 
         FileInputStream inputStream = null;
         Scanner sc = null;
         try {
-            inputStream = new FileInputStream("C:\\Avac-beta\\src\\main\\resources\\sortedWords");
+            inputStream = new FileInputStream("C:\\Avac-beta\\src\\main\\resources\\intermediateFiles\\ru_wiki_freq.txt");
             sc = new Scanner(inputStream, "UTF-8");
 
             int counter = 0;
             while (sc.hasNextLine()) {
                 counter++;
                 String line = sc.nextLine();
-                String[] a = line.split(":");
-                if (counter > 0) {
+                String[] a = line.split(" ");
+                if ( a[0].length() < 33 && counter > 111200 && counter < 1000001) {
                     ps.setString(1, a[0].trim());
                     ps.setInt(2, Integer.parseInt(a[1].trim()));
                     ps.addBatch();
@@ -52,7 +52,7 @@ class App {
             if (sc != null) {
                 sc.close();
             }
-            JDBConnector.tryToCloseStatementAndResultSet(ps, null);
+            JDBConnector.tryToCloseDbResources(ps, null, conn);
         }
     }
 }

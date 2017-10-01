@@ -25,21 +25,26 @@ public class JDBConnector {
         return conn;
     }
 
-    public static void tryToCloseStatementAndResultSet(Statement stmt, ResultSet rs) {
+    public static void tryToCloseDbResources(Statement stmt, ResultSet rs, Connection conn) {
         if (rs != null) {
             try {
                 rs.close();
-            } catch (SQLException ignored) {
-                //
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
         if (stmt != null) {
             try {
                 stmt.close();
-            } catch (SQLException ignored) {
-                //
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
+        }
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

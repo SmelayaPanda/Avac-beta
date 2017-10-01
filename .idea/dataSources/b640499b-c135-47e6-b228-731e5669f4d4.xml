@@ -910,199 +910,186 @@
     <table id="229" parent="2" name="avacDictionary">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="230" parent="2" name="engAudio">
+    <table id="230" parent="2" name="england">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="231" parent="2" name="england">
+    <table id="231" parent="2" name="wikipediaEng">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="232" parent="2" name="wiki">
+    <table id="232" parent="2" name="wikipediaRus">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="233" parent="2" name="wikipedia">
-      <Engine>InnoDB</Engine>
-    </table>
-    <column id="234" parent="229" name="rank">
+    <column id="233" parent="229" name="rank">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="235" parent="229" name="eng">
+    <column id="234" parent="229" name="eng">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="236" parent="229" name="rus">
+    <column id="235" parent="229" name="rus">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="237" parent="229" name="deu">
+    <column id="236" parent="229" name="deu">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="238" parent="229" name="fra">
+    <column id="237" parent="229" name="fra">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="239" parent="229" name="ita">
+    <column id="238" parent="229" name="ita">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="229" name="spa">
+    <column id="239" parent="229" name="spa">
       <Position>7</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="241" parent="229" name="tur">
+    <column id="240" parent="229" name="tur">
       <Position>8</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="242" parent="229" name="pol">
+    <column id="241" parent="229" name="pol">
       <Position>9</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="229" name="swd">
+    <column id="242" parent="229" name="swd">
       <Position>10</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="229" name="gre">
+    <column id="243" parent="229" name="gre">
       <Position>11</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="245" parent="229" name="avacDictionary_eng_uindex">
+    <index id="244" parent="229" name="avacDictionary_eng_uindex">
       <ColNames>eng</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="246" parent="229" name="avacDictionary_rank_uindex">
+    <index id="245" parent="229" name="avacDictionary_rank_uindex">
       <ColNames>rank</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="247" parent="229" name="avacDictionary_rus_index">
+    <index id="246" parent="229" name="avacDictionary_rus_index">
       <ColNames>rus</ColNames>
     </index>
-    <index id="248" parent="229" name="avacDictionary_deu_index">
+    <index id="247" parent="229" name="avacDictionary_deu_index">
       <ColNames>deu</ColNames>
     </index>
-    <index id="249" parent="229" name="avacDictionary_fra_index">
+    <index id="248" parent="229" name="avacDictionary_fra_index">
       <ColNames>fra</ColNames>
     </index>
-    <index id="250" parent="229" name="avacDictionary_ita_index">
+    <index id="249" parent="229" name="avacDictionary_ita_index">
       <ColNames>ita</ColNames>
     </index>
-    <index id="251" parent="229" name="avacDictionary_spa_index">
+    <index id="250" parent="229" name="avacDictionary_spa_index">
       <ColNames>spa</ColNames>
     </index>
-    <index id="252" parent="229" name="avacDictionary_tur_index">
+    <index id="251" parent="229" name="avacDictionary_tur_index">
       <ColNames>tur</ColNames>
     </index>
-    <index id="253" parent="229" name="avacDictionary_pol_index">
+    <index id="252" parent="229" name="avacDictionary_pol_index">
       <ColNames>pol</ColNames>
     </index>
-    <index id="254" parent="229" name="avacDictionary_swd_index">
+    <index id="253" parent="229" name="avacDictionary_swd_index">
       <ColNames>swd</ColNames>
     </index>
-    <index id="255" parent="229" name="avacDictionary_gre_index">
+    <index id="254" parent="229" name="avacDictionary_gre_index">
       <ColNames>gre</ColNames>
     </index>
-    <key id="256" parent="229" name="PRIMARY">
+    <key id="255" parent="229" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>rank</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="257" parent="229" name="avacDictionary_rank_uindex">
+    <key id="256" parent="229" name="avacDictionary_rank_uindex">
       <ColNames>rank</ColNames>
       <UnderlyingIndexName>avacDictionary_rank_uindex</UnderlyingIndexName>
     </key>
-    <key id="258" parent="229" name="avacDictionary_eng_uindex">
+    <key id="257" parent="229" name="avacDictionary_eng_uindex">
       <ColNames>eng</ColNames>
       <UnderlyingIndexName>avacDictionary_eng_uindex</UnderlyingIndexName>
     </key>
-    <column id="259" parent="230" name="word">
-      <Position>1</Position>
-      <DataType>varchar(255)|0</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="260" parent="230" name="link">
-      <Position>2</Position>
-      <DataType>varchar(1024)|0</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="261" parent="231" name="word">
+    <column id="258" parent="230" name="word">
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="231" name="rank">
+    <column id="259" parent="230" name="rank">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="231" name="weight">
+    <column id="260" parent="230" name="weight">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="231" name="synonims">
+    <column id="261" parent="230" name="synonims">
       <Position>4</Position>
       <DataType>varchar(1024)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="231" name="audioPath">
+    <column id="262" parent="230" name="audioPath">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="231" name="imagePath">
+    <column id="263" parent="230" name="imagePath">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="231" name="examples">
+    <column id="264" parent="230" name="examples">
       <Position>7</Position>
       <DataType>varchar(2048)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="268" parent="231" name="england_word_uindex">
+    <index id="265" parent="230" name="england_word_uindex">
       <ColNames>word</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="269" parent="231" name="PRIMARY">
+    <key id="266" parent="230" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>word</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="270" parent="231" name="england_word_uindex">
+    <key id="267" parent="230" name="england_word_uindex">
       <ColNames>word</ColNames>
       <UnderlyingIndexName>england_word_uindex</UnderlyingIndexName>
     </key>
-    <column id="271" parent="232" name="word">
+    <column id="268" parent="231" name="word">
       <Position>1</Position>
       <DataType>varchar(32)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="232" name="weight">
+    <column id="269" parent="231" name="frequency">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="273" parent="233" name="word">
+    <column id="270" parent="232" name="word">
       <Position>1</Position>
       <DataType>varchar(32)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="233" name="frequency">
+    <column id="271" parent="232" name="frequency">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
