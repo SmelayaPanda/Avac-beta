@@ -25,9 +25,9 @@ public class FileReader {
             }
             System.out.println(map.size());
             Map<String, Integer> sortedMap = sortByValue(map);
-            String aggFileName = "/Users/panda/IdeaProjects/Avac-beta/src/main/resources/sortedWords";
+            String addFileName = "/Users/panda/IdeaProjects/Avac-beta/src/main/resources/sortedWords";
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(aggFileName))) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(addFileName))) {
                 for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
                     if (entry.getValue() > 30) {
                         bw.write(entry.getKey() + ": " + entry.getValue() + "\n");
@@ -49,7 +49,7 @@ public class FileReader {
 
     }
 
-    private static <K, V extends Comparable<? super V>> Map<K, V>
+    static <K, V extends Comparable<? super V>> Map<K, V>
     sortByValue(Map<K, V> map) {
         List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
         list.sort((o1, o2) -> (o2.getValue()).compareTo(o1.getValue()));
