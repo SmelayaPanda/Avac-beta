@@ -38,8 +38,8 @@ public class SentenceArranger {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileForWrite))) {
             for (Map.Entry<String, Integer> engWord : sortedMap.entrySet()) {
+                wordNum++;
                 if (wordNum >= 0) { // для случая падения на каком-то слове
-                    wordNum++;
                     Date date = new Date();
 
                     System.out.println(AnsiColor.BLUE + new Timestamp(date.getTime()) + "\n Word №: " + wordNum + " --> " + engWord.getKey() + AnsiColor.RESET);
@@ -48,6 +48,15 @@ public class SentenceArranger {
                     search:
                     {
                         for (int i = 1; i < 4633; i++) {
+                            if (i % 100 == 0) {
+                                System.out.println(" Считали уже " + i + " файлов wiki: " + sentenceCounter + " предложений найдено");
+                                if (i == 500 && sentenceCounter == 0) {
+                                    break search;
+                                }
+                                if (i == 1000 && sentenceCounter == 1) {
+                                    break search;
+                                }
+                            }
                             wikiFile = iterateByWiki(i);
                             String[] sentenceArray = wikiFile.split("\\. ");
 
@@ -55,17 +64,11 @@ public class SentenceArranger {
                                 sentence = rs.trim();
                                 if (isRightSentence(sentence, engWord)) {
                                     splittedSentence = sentence.split(" ");
-
                                     rank = 0;
-                                    for (String ss : splittedSentence) {
-                                        if (sortedMap.containsKey(ss.trim())) {
-                                            rank += sortedMap.get(ss.trim());
-                                        }
-                                    }
-                                    avrRank = rank / (splittedSentence.length * 100000);
+                                    avrRank = calcAvrRankOfSentence(sortedMap, splittedSentence, rank);
                                     bw.write(engWord.getKey() + "   @@@   " + avrRank + "   ###   " + sentence + "\n");
-                                    if (sentenceCounter > 99) {
-                                        System.out.println(" Найдено всего " + sentenceCounter + " предложений ");
+                                    bw.flush();
+                                    if (searchBreaker(sentenceCounter, wordNum)) {
                                         break search;
                                     }
                                     sentenceCounter++;
@@ -78,17 +81,58 @@ public class SentenceArranger {
                     }
                 }
             }
+        } catch (Exception e) {
+            //
         }
     }
 
+    private static int calcAvrRankOfSentence(Map<String, Integer> sortedMap, String[] splittedSentence, int rank) {
+        int avrRank;
+        for (String ss : splittedSentence) {
+            if (sortedMap.containsKey(ss.trim())) {
+                rank += sortedMap.get(ss.trim());
+            }
+        }
+        avrRank = rank / (splittedSentence.length * 10000);
+        return avrRank;
+    }
+
+    private static boolean searchBreaker(int sentenceCounter, int wordNum) {
+        if (wordNum < 10001) {
+            if (sentenceCounter == 50) {
+                System.out.println(" Найдено всего " + sentenceCounter + " предложений ");
+                return true;
+            }
+        }
+        if (wordNum > 10000 && wordNum < 50000) {
+            if (sentenceCounter == 10) {
+                System.out.println(" Найдено всего " + sentenceCounter + " предложений ");
+                return true;
+            }
+        }
+        if (wordNum >= 50000 && wordNum < 100000) {
+            if (sentenceCounter == 5) {
+                System.out.println(" Найдено всего " + sentenceCounter + " предложений ");
+                return true;
+            }
+        }
+        if (wordNum >= 100000) {
+            if (sentenceCounter == 3) {
+                System.out.println(" Найдено всего " + sentenceCounter + " предложений ");
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static boolean isRightSentence(String sentence, Map.Entry<String, Integer> engWord) {
-        return sentence.length() > 21 &&
+        return sentence.length() > 20 &&
                 sentence.length() <= 128 &&
                 Character.isUpperCase(sentence.charAt(0)) &&
                 isAlphaWithPunctuation(sentence) &&
                 !sentence.contains("http") &&
                 !sentence.contains("www") &&
-                sentence.contains(engWord.getKey());
+                (sentence.contains(" " + engWord.getKey() + " ") || sentence.contains(" " + engWord.getKey()));
     }
 
     private static Map<String, Integer> readFileToMap() throws FileNotFoundException {
@@ -113,8 +157,8 @@ public class SentenceArranger {
         for (String f : filePath) {
             try (Stream<String> stream = Files.lines(Paths.get(f), StandardCharsets.UTF_8)) {
                 stream.forEach(s -> contentBuilder.append(s.trim()).append(" "));
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                //
             }
         }
         return contentBuilder.toString();
