@@ -28,3 +28,4 @@ hs_err_pid*
 .idea/inspectionProfiles/
 .idea/workspace.xml
 target/
+src/main/java/db/AvacSchema.java
